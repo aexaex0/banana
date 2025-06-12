@@ -1,55 +1,34 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Banana – NFC hangindítás</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gonb</title>
   <style>
     body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: sans-serif;
-      background: #fffbe6;
     }
-    #playBtn {
-      font-size: 28px;
-      padding: 20px 40px;
-      cursor: pointer;
+
+    button {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #ccc;
       border: none;
-      border-radius: 10px;
-      background: #ffee00;
-      color: #222;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <audio id="sound" src="hangod.mp3" preload="auto"></audio>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const shouldPlay = params.get('play') === '1';
-
-    if (shouldPlay) {
-      const btn = document.createElement('button');
-      btn.id = 'playBtn';
-      btn.innerText = '▶️ Indítsd el a hangot';
-      document.body.appendChild(btn);
-
-      btn.addEventListener('click', () => {
-        const audio = document.getElementById('sound');
-        audio.volume = 1.0;
-        audio.play().catch(err => {
-          console.error('Lejátszási hiba:', err);
-        });
-        btn.style.display = 'none';
-      });
-    } else {
-      document.body.innerHTML = '<h2>Helyes trigger nem érkezett</h2>';
-    }
-  </script>
+  <button onclick="document.getElementById('audio').play()">gonb</button>
+  <audio id="audio" src="hangod.mp3" preload="auto"></audio>
 </body>
 </html>
