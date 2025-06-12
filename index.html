@@ -1,34 +1,55 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOMB</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            margin-top: 50px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banana – NFC hangindítás</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+      background: #fffbe6;
+    }
+    #playBtn {
+      font-size: 28px;
+      padding: 20px 40px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background: #ffee00;
+      color: #222;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-    <h1>nyomd a gombot bebi</h1>
-    <button id="playBtn">GOMB</button>
+  <audio id="sound" src="hangod.mp3" preload="auto"></audio>
 
-    <script src="script.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const shouldPlay = params.get('play') === '1';
+
+    if (shouldPlay) {
+      const btn = document.createElement('button');
+      btn.id = 'playBtn';
+      btn.innerText = '▶️ Indítsd el a hangot';
+      document.body.appendChild(btn);
+
+      btn.addEventListener('click', () => {
+        const audio = document.getElementById('sound');
+        audio.volume = 1.0;
+        audio.play().catch(err => {
+          console.error('Lejátszási hiba:', err);
+        });
+        btn.style.display = 'none';
+      });
+    } else {
+      document.body.innerHTML = '<h2>Helyes trigger nem érkezett</h2>';
+    }
+  </script>
 </body>
 </html>
